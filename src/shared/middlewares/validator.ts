@@ -3,7 +3,7 @@ import { z } from "zod";
 
 type RequestLocation = "body" | "query" | "params";
 
-export default function (location: RequestLocation, schema: z.AnyZodObject) {
+export function validateRequest(location: RequestLocation, schema: z.AnyZodObject) {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       const validatedSchema = await schema.parseAsync(req[location]);
