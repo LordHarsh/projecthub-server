@@ -1,5 +1,5 @@
 import express from "./express";
-import mongo from "./mongo";
+import mongo from "./database";
 import Express from "express";
 
 export default async ({ expressApp}: { expressApp: Express.Application }): Promise<void> => {
