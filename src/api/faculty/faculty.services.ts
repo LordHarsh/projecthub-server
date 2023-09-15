@@ -30,3 +30,9 @@ export const handleCreateClass = async (
   });
   return classes;
 };
+
+export const handleCreateQuestion = async (title: string, question: string):Promise<void> => {
+  const collection = (await database()).collection("questions");
+  await collection.insertOne({title, question});
+  return;
+}
