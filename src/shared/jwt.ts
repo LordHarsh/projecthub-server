@@ -2,8 +2,8 @@ import config from "../config";
 import * as jwt from "jsonwebtoken";
 
 export default function generateToken(email: string): string {
-  return jwt.sign(email, config.jwtSecret, {
-    expiresIn: "1d",
+  return jwt.sign({ email }, config.jwtSecret, {
+    expiresIn: "30d",
     algorithm: "HS256",
   } as jwt.SignOptions);
 }

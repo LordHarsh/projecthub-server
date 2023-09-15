@@ -1,12 +1,13 @@
 import express from "./express";
 import mongo from "./database";
 import Express from "express";
+import Logger from "./logger";
 
 export default async ({ expressApp}: { expressApp: Express.Application }): Promise<void> => {
     await mongo();
-    console.log("MongoDB Intialized");
+    Logger.info("MongoDB Intialized");
     await express({ app: expressApp });
-    console.log("Express App Intialized");
+    Logger.info("Express App Intialized");
 
-    console.log("All modules loaded!");
+    Logger.info("All modules loaded!");
 }

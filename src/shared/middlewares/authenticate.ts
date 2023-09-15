@@ -2,9 +2,11 @@ import { Request, Response, NextFunction } from "express";
 import { verifyToken } from "../jwt";
 import database from "../../loaders/database";
 
-export default function authenticateToken() {
+// to authenticate faculty
+export default function authenticateFaculty() {
   return async (req: Request, res: Response, next: NextFunction) => {
     const bearer_token = req.headers["authorization"];
+    console.log(bearer_token);
     const token = bearer_token?.split(" ")[1];
     if (!token) {
       return res.status(401).json({
@@ -14,15 +16,15 @@ export default function authenticateToken() {
     try {
       const email = verifyToken(token);
       const db = await database();
-      const user = (await db).collection("users").findOne({
+      const faculty = (await db).collection("faculties").findOne({
         email,
       });
-      if (!user) {
+      if (!faculty) {
         return res.status(401).json({
           message: "Unauthorized",
         });
       }
-      res.locals.user = user;
+      res.locals.faculty = faculty;
       next();
     } catch (error) {
       return res.status(401).json({
@@ -30,4 +32,36 @@ export default function authenticateToken() {
       });
     }
   };
+}
+
+// to authentiate student
+export function authenticateStudent(){
+  return async (req: Request, res: Response, next: NextFunction) => {
+    const bearer_token = req.headers["authorization"];
+    console.log(bearer_token);
+    const token = bearer_token?.split(" ")[1];
+    if (!token) {
+      return res.status(401).json({
+        message: "Unauthorized",
+      });
+    }
+    try {
+      const email = verifyToken(token);
+      const db = await database();
+      const students = (await db).collection("students").findOne({
+        email,
+      });
+      if (!students) {
+        return res.status(401).json({
+          message: "Unauthorized",
+        });
+      }
+      res.locals.faculty = students;
+      next();
+    } catch (error) {
+      return res.status(401).json({
+        message: "Unauthorized",
+      });
+    }
+  }
 }

@@ -1,5 +1,5 @@
-import database from "@/loaders/database";
-import generateToken from "@/shared/jwt";
+import database from "../../loaders/database";
+import generateToken from "../../shared/jwt";
 import bcrypt from "bcrypt";
 
 // Handle faculty signup
@@ -14,7 +14,7 @@ export const handleCreateFaculty = async (
   const hashedPassword = await bcrypt.hash(password, 10);
   const faculty = await collection.findOne({ email });
   if (faculty) {
-    throw new Error("Faculty already exists");
+    throw {statusCode: 500, message: "Faculty already exists"};
   }
   await collection.insertOne({
     designation,

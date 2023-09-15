@@ -33,9 +33,7 @@ export const loginFaculty = async (
     res.status(200).send({
       success: true,
       message: "Faculty logged in successfully",
-      data: {
-        token,
-      },
+      token,
     });
   } catch (error) {
     next(error);
@@ -71,9 +69,7 @@ export const loginStudent = async (req: Request, res: Response, next: NextFuncti
         res.status(200).send({
         success: true,
         message: "Student logged in successfully",
-        data: {
-            token,
-        },
+        token,
         });
     } catch (error) {
         next(error);
