@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { handleGetFaculty } from "./faculty.services";
+import { handleCreateClass, handleGetFaculty } from "./faculty.services";
 
 export const getFaculty = async (req: Request, res: Response, next: NextFunction) => {
     try {
